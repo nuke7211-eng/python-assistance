@@ -1,4 +1,3 @@
-
 def add(x, y):
     """두 수를 더합니다."""
     return x + y
@@ -17,7 +16,8 @@ def divide(x, y):
         return "오류: 0으로 나눌 수 없습니다."
     return x / y
 
-if __name__ == "__main__":
+def main():
+    """계산기 메인 함수"""
     try:
         num1 = float(input("첫 번째 숫자를 입력하세요: "))
         num2 = float(input("두 번째 숫자를 입력하세요: "))
@@ -34,3 +34,6 @@ if __name__ == "__main__":
         print("오류: 유효한 숫자를 입력해주세요.")
     except Exception as e:
         print(f"예상치 못한 오류가 발생했습니다: {e}")
+
+if __name__ == "__main__":
+    main()
