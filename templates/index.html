@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주식 관리</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">주식 목록</h1>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <a href="/add" class="btn btn-primary">새 주식 추가</a>
+            </div>
+            <div class="col-md-6">
+                <form action="/" method="get" class="d-flex">
+                    <input type="text" name="search" class="form-control me-2" placeholder="종목명 또는 코드 검색" value="{{ search_query }}">
+                    <button type="submit" class="btn btn-outline-secondary">검색</button>
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-striped table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th><a href="{{ url_for('index', sort_by='종목코드', order='desc' if sort_by == '종목코드' and order == 'asc' else 'asc', search=search_query) }}" class="text-decoration-none text-dark">종목코드</a></th>
+                    <th><a href="{{ url_for('index', sort_by='종목명', order='desc' if sort_by == '종목명' and order == 'asc' else 'asc', search=search_query) }}" class="text-decoration-none text-dark">종목명</a></th>
+                    <th><a href="{{ url_for('index', sort_by='현재가', order='desc' if sort_by == '현재가' and order == 'asc' else 'asc', search=search_query) }}" class="text-decoration-none text-dark">현재가</a></th>
+                    <th><a href="{{ url_for('index', sort_by='시가총액', order='desc' if sort_by == '시가총액' and order == 'asc' else 'asc', search=search_query) }}" class="text-decoration-none text-dark">시가총액</a></th>
+                    <th><a href="{{ url_for('index', sort_by='PER', order='desc' if sort_by == 'PER' and order == 'asc' else 'asc', search=search_query) }}" class="text-decoration-none text-dark">PER</a></th>
+                    <th>작업</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock['종목코드'] }}</td>
+                    <td>{{ stock['종목명'] }}</td>
+                    <td>{{ "{:,}".format(stock['현재가']) }}</td>
+                    <td>{{ stock['시가총액'] }}</td>
+                    <td>{{ stock['PER'] }}</td>
+                    <td>
+                        <a href="/edit/{{ loop.index0 + (page - 1) * 3 }}" class="btn btn-sm btn-secondary">수정</a>
+                        <a href="/delete/{{ loop.index0 + (page - 1) * 3 }}" class="btn btn-sm btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if total_pages > 1 %}
+                    <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url_for('index', page=page-1, sort_by=sort_by, order=order, search=search_query) }}">이전</a>
+                    </li>
+
+                    {% for p in range(1, total_pages + 1) %}
+                        <li class="page-item {% if p == page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('index', page=p, sort_by=sort_by, order=order, search=search_query) }}">{{ p }}</a>
+                        </li>
+                    {% endfor %}
+
+                    <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url_for('index', page=page+1, sort_by=sort_by, order=order, search=search_query) }}">다음</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
