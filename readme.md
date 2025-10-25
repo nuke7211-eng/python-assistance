@@ -1,12 +1,2 @@
-# Python Assistance Project
-
-This project contains a collection of Python scripts for various purposes.
-
-## Included Files
-
-- `app.py`: Main application script.
-- `calculator.py`: A simple calculator implementation.
-- `test_calculator.py`: Tests for the calculator.
-- `server.py` & `client.py`: A basic client-server socket application.
-- `port_cheker.py`: A tool to check for open ports.
-- Various other scripts for learning and development.
+github 서버에 파일 올리는 것 처음으로 실습
+readme.md 파일을 수정하는 것을 테스트
