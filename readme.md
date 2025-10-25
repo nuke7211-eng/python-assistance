@@ -1,1 +1,3 @@
-github 서버에 파일 올리는 것 처음으로 실습
+# Python Assistance Project
+
+내용을 다시 테스트한다
