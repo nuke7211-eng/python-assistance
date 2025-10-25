@@ -7,3 +7,6 @@ def dev2():
     
 def dev3():
     print("This is dev3")
+
+def dev4():
+    print("This is dev4")
